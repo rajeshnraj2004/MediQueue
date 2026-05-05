@@ -1,8 +1,8 @@
-# MediQueue
-MediQueue is a healthcare app that helps patients book appointments, track their queue in real time, and avoid long waiting times. It connects patients and doctors on one platform to make hospital visits faster and more efficient.
-🏥 MediQueue – Smart Healthcare Queue Management System
+# MediQueue – Smart Healthcare Queue Management System
 
-MediQueue is a modern healthcare application that helps patients avoid long waiting times by enabling online appointment booking, real-time queue tracking, and instant notifications.
+MediQueue is a healthcare app that helps patients book appointments, track their queue in real time, and avoid long waiting times. It connects patients and doctors on one platform to make hospital visits faster and more efficient.
+
+
 
 It connects patients, doctors, and administrators on a single platform to make hospital visits faster, smarter, and more efficient.
 
