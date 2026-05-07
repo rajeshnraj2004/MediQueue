@@ -7,10 +7,12 @@ import { SlCalender } from "react-icons/sl";
 import { LuCalendarCheck } from "react-icons/lu";
 import { GrUserAdmin } from "react-icons/gr";
 import AdminDashboard from "./AdminDashboard.jsx";
+import PatientListPage from "./PatientListPage.jsx";
 const navItems = [
   { icon: <RxDashboard />, label: "Dashboard", onClick: () => {},
     component: <AdminDashboard /> },
-  { icon: <FaUsers />, label: "Patients" },
+  { icon: <FaUsers />, label: "Patients",
+    component: <PatientListPage /> },
   { icon: <SlCalender />, label: "Appointments" },
   { icon: <FaUserDoctor />, label: "Doctors" },
   { icon: <LuCalendarCheck />, label: "Queue" },
