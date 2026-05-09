@@ -1,9 +1,11 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import bcrypt from 'bcryptjs';
 import ConnectDB from './config/Database.js';
 import adminRoutes from './routes/adminRoutes.js';
+import aiRoutes from './routes/aiRoutes.js';
 import Admin from './models/AdminModel.js';
 
 dotenv.config();
@@ -14,6 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/admin', adminRoutes);
+app.use('/api/ai', aiRoutes);
 
 // Seed admin into DB if not already present
 const seedAdmin = async () => {
@@ -37,5 +40,11 @@ const seedAdmin = async () => {
 app.listen(process.env.PORT, async () => {
     console.log(`Server is running on port ${process.env.PORT}`);
     await ConnectDB();
-    await seedAdmin();
+    
+    // Only seed if DB is connected
+    if (mongoose.connection.readyState === 1) {
+        await seedAdmin();
+    } else {
+        console.log("Skipping Admin seeding because database is not connected.");
+    }
 });

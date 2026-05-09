@@ -133,12 +133,7 @@ export default function LoginScreen() {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        if (isLoaded && user) {
-            navigation.reset({
-                index: 0,
-                routes: [{ name: "HomeScreen" }],
-            });
-        }
+        // App.js handles redirection automatically when user state changes
     }, [user, isLoaded]);
 
     const handleGoogleSignIn = async () => {
@@ -148,10 +143,6 @@ export default function LoginScreen() {
 
             if (createdSessionId && setActive) {
                 await setActive({ session: createdSessionId });
-                navigation.reset({
-                    index: 0,
-                    routes: [{ name: "HomeScreen" }],
-                });
             }
         } catch (err) {
             Alert.alert("Error", err?.message || "Login failed");

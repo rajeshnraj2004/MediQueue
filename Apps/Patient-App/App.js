@@ -4,11 +4,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import * as SecureStore from 'expo-secure-store';
-import { ClerkProvider } from '@clerk/expo';
+import { ClerkProvider, useAuth } from '@clerk/expo';
 
 import OnboardingScreen from './app/screens/OnboardingScreen';
 import LoginScreen from './app/screens/LoginScreen';
 import HomeScreen from './app/screens/HomeScreen';
+import BookAppointmentScreen from './app/screens/BookAppointmentScreen';
+import AIChatScreen from './app/screens/AI-ChatScreen';
 
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -31,6 +33,34 @@ const tokenCache = {
 
 const Stack = createNativeStackNavigator();
 
+function Navigation() {
+  const { isLoaded, isSignedIn } = useAuth();
+
+  if (!isLoaded) return null;
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{ headerShown: false }}
+        initialRouteName={isSignedIn ? "HomeScreen" : "Onboarding"}
+      >
+        {!isSignedIn ? (
+          <>
+            <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+            <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="HomeScreen" component={HomeScreen} />
+            <Stack.Screen name="BookAppointmentScreen" component={BookAppointmentScreen} />
+            <Stack.Screen name="AIChatScreen" component={AIChatScreen} />
+          </>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
 export default function App() {
   return (
     <ClerkProvider 
@@ -39,16 +69,7 @@ export default function App() {
     >
       <GestureHandlerRootView style={{ flex: 1 }}>
         <SafeAreaProvider>
-          <NavigationContainer>
-            <Stack.Navigator
-              initialRouteName="Onboarding"
-              screenOptions={{ headerShown: false }}
-            >
-              <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-              <Stack.Screen name="LoginScreen" component={LoginScreen} />
-              <Stack.Screen name="HomeScreen" component={HomeScreen} />
-            </Stack.Navigator>
-          </NavigationContainer>
+          <Navigation />
         </SafeAreaProvider>
       </GestureHandlerRootView>
     </ClerkProvider>
