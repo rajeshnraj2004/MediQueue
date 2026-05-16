@@ -163,23 +163,32 @@ function HomeScreen() {
   const syncUser = async () => {
     try {
       const token = await getToken();
-      if (!token) return;
+      if (!token) {
+        console.warn("--> [FRONTEND] No Clerk token found for sync.");
+        return;
+      }
       
-      /* 
-      await fetch("http://10.237.202.103:5000/api/patient/sync", {
+      const payload = {
+        clerkId: user.id,
+        name: `${user.firstName || ""} ${user.lastName || ""}`.trim() || user.fullName || "Anonymous",
+        email: user.primaryEmailAddress?.emailAddress,
+        imageUrl: user.imageUrl,
+      };
+
+      console.log("--> [FRONTEND] Syncing User with Payload:", payload);
+
+      const response = await fetch("http://192.168.1.115:5000/api/patient", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          clerkId: user.id,
-          firstName: user.firstName,
-          emailAddresses: user.emailAddresses,
-          imageUrl: user.imageUrl,
-        }),
+        body: JSON.stringify(payload),
       });
-      */
+
+      const data = await response.json();
+      console.log("--> [FRONTEND] Sync Response:", response.status, data);
+
     } catch (error) {
       console.error("--> [FRONTEND] Sync Exception:", error);
     }

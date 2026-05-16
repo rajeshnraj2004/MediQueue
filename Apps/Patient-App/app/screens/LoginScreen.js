@@ -4,7 +4,6 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-    SafeAreaView,
     ActivityIndicator,
     Image,
     Alert,
@@ -19,6 +18,7 @@ import Animated, {
     runOnJS,
     interpolate,
 } from "react-native-reanimated";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Svg, { Path, Polyline } from "react-native-svg";
 import { useUser, useOAuth, useAuth } from "@clerk/expo";
 import * as WebBrowser from "expo-web-browser";

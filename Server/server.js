@@ -6,6 +6,8 @@ import bcrypt from 'bcryptjs';
 import ConnectDB from './config/Database.js';
 import adminRoutes from './routes/adminRoutes.js';
 import aiRoutes from './routes/aiRoutes.js';
+import patientRoutes from './routes/patientRoutes.js';
+import appointmentRoutes from './routes/appointmentRoutes.js';
 import Admin from './models/AdminModel.js';
 
 dotenv.config();
@@ -17,6 +19,8 @@ app.use(express.json());
 
 app.use('/api/admin', adminRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/patient', patientRoutes);
+app.use('/api/appointments', appointmentRoutes);
 
 // Seed admin into DB if not already present
 const seedAdmin = async () => {

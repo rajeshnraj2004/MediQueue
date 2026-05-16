@@ -30,8 +30,7 @@ import { Alert } from "react-native";
 
 const { width } = Dimensions.get("window");
 
-// Use local IP for physical device testing or 10.0.2.2 for Android Emulator
-const API_URL = "http://10.237.202.103:5000/api/ai/predict"; 
+const API_URL = "http://192.168.1.115:5000/api/ai/predict"; 
 
 const FadeInView = (props) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
